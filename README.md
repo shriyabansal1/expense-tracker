@@ -1,180 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: rgb(1, 1, 20);
-      }
-      .container {
-        width: 400px;
-        background-color: rgb(11, 11, 11);
-        border-radius: 8px;
-        border: none;
-        box-shadow: rgba(0, 0, 0, 0.3);
-      }
-      h2 {
-        color: wheat;
+# 💸 Expense Tracker Web App
 
-        margin-bottom: 20px;
-        text-align: center;
-      }
-      form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-      input[type="text"],
-      input[type="number"] {
-        color: white;
-        padding: 10px;
-        width: 40%;
-        background-color: black;
-        border-radius: 5px;
-        border: none;
-        box-shadow: rgba(0, 0, 0, 0.3);
-        margin: 5px;
-      }
-      button {
-        margin: 5px;
-        padding: 5px;
-        color: rgb(244, 241, 241);
-        background-color: black;
-        transition: background-color 0.3s;
-        border: none;
-        box-shadow: rgba(0, 0, 0, 0.3);
-      }
-      button:hover {
-        background-color: rgb(2, 2, 48);
-      }
-      .total {
-        text-align: center;
-        color: white;
-        margin-bottom: 20px;
-        margin-top: 25px;
-      }
-      h1 {
-        text-align: center;
-        color: white;
-        margin: 20px;
-      }
-      #expense-list {
-        list-style-type: none;
-        padding: 0;
-      }
-      #expense-list li {
-        background-color: #333333;
-        padding: 10px;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-radius: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h2>EXPENSE-TRACKER BY SHRIYA❤️</h2>
-      <form id="expense-form">
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Expense-name"
-          required
-        />
-        <input
-          type="number"
-          id="amount"
-          name="amount"
-          placeholder="Expense-amount"
-          required
-        />
-        <button type="submit">ADD EXPENSE</button>
-      </form>
-      <ul id="expense-list"></ul>
-      <div class="total">
-        <h3>TOTAL AMOUNT: <span id="totalamount">0.00</span></h3>
-      </div>
-      <h1>EXPENSES</h1>
-    </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const expenseForm = document.getElementById("expense-form");
-        const totalamountdisplay = document.getElementById("totalamount");
-        const expenselist = document.getElementById("expense-list");
-        const expensename = document.getElementById("name");
-        const expenseamount = document.getElementById("amount");
+A simple and stylish web-based Expense Tracker built with **HTML, CSS, and JavaScript**, designed to help users manage and track their daily spending. Your data is stored using `localStorage`, so it remembers your expenses even after refreshing the page!
 
-        let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
-        const totalamount = calculateTotal();
-        renderExpenses();
-        expenseForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const name = expensename.value.trim();
-          const amount = parseFloat(expenseamount.value.trim());
-          if (name !== "" && !isNaN(amount) && amount > 0) {
-            const expensevalue = {
-              id: Date.now(),
-              name: name,
-              amount: amount,
-            };
-            expenses.push(expensevalue);
-            saveExpensesTolocal();
-            renderExpenses();
-            updateTotal();
+---
 
-            expensename.value = "";
-            expenseamount.value = "";
-          }
-        });
+## 🌟 Features
 
-        function renderExpenses() {
-          expenselist.innerHTML = "";
-          expenses.forEach((expense) => {
-            const li = document.createElement("li");
-            li.innerHTML = `${expense.name} - $${expense.amount}
-                <button data-id = ${expense.id}> delete</button>`;
-            expenselist.appendChild(li);
-          });
-        }
+- Add and display expenses with amount and name
+- View a running **total** of all expenses
+- Delete individual expenses
+- Data persistence using `localStorage`
+- Clean and modern UI with a dark theme
 
-        function calculateTotal() {
-          return expenses.reduce((sum, expense) => sum + expense.amount, 0);
-        }
+---
 
-        function saveExpensesTolocal() {
-          localStorage.setItem("expenses", JSON.stringify(expenses));
-        }
+## 🛠️ Built With
 
-        function updateTotal() {
-          const total = calculateTotal();
-          totalamountdisplay.textContent = total.toFixed(2);
-        }
+- HTML5
+- CSS3
+- Vanilla JavaScript (ES6)
+- LocalStorage (for saving data in browser)
 
-        expenselist.addEventListener("click", (e) => {
-          if (e.target.tagName == "BUTTON") {
-            const expenseid = parseInt(e.target.getAttribute("data-id"));
-            expenses = expenses.filter((expense) => expense.id !== expenseid);
-            saveExpensesTolocal();
-            renderExpenses();
-            updateTotal();
-          }
-        });
-      });
-    </script>
-  </body>
-</html>
+---
+
+## 🚀 How to Run
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/expense-tracker.git
+cd expense-tracker
+```
+
+2. Open `expenseTracker.html` in your browser:
+
+```bash
+start expenseTracker.html
+```
+
+Or just double-click on the file in your folder.
+
+---
+
+## 📸 Screenshots
+
+> 💡 (Add screenshots here if you have any to showcase your UI)
+
+---
+
+## 📁 File Structure
+
+```
+expense-tracker/
+│
+├── expenseTracker.html      # Main HTML file with all logic and styling
+├── README.md                # This file
+```
+
+---
+
+## 🙋‍♀️ Made By
+
+Created with ❤️ by **Shriya Bansal**
+
+---
+
+## 🔒 Note
+
+This app is client-side only and does **not** use any backend or database. Your data is saved in your own browser.
